@@ -1,0 +1,6 @@
+{
+  "name": "TransitOps",
+  "description": "TransitOps Smart Transport Operations Platform: full-stack vehicle, driver, dispatch, maintenance, and expense management platform with role-based access control (RBAC) and business rules enforcement.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
