@@ -1,96 +1,100 @@
 # CIT-Coderzz
-# TransitOps — Smart Transport Operations Platform
+# CIT-Coderzz: TransitOps — Smart Transport Operations Platform
 
-An end-to-end transport operations platform for logistics companies to manage the complete lifecycle of their fleet — from vehicle registration and driver management to trip dispatching, maintenance, fuel logging, and operational analytics.
+TransitOps is an end-to-end transport operations platform designed for logistics companies to seamlessly manage the complete lifecycle of their fleet—from vehicle registration and driver onboarding to real-time trip dispatching, scheduled maintenance, secure fuel/expense logging, and rich operational analytics.
 
-## Problem
+---
 
-Many logistics companies still rely on spreadsheets and manual logbooks to manage transport operations, leading to scheduling conflicts, underutilized vehicles, missed maintenance, expired driver licenses, inaccurate expense tracking, and poor operational visibility.
+## 🚀 Presentation & Quick Links
 
-## Target Users
+- **Live Sandbox App:** [TransitOps Shared Sandbox](https://ais-pre-obqlfjidprfcqt4cijtdpb-555222198996.asia-east1.run.app)
+- **Live Development Preview:** [TransitOps Dev Preview](https://ais-dev-obqlfjidprfcqt4cijtdpb-555222198996.asia-east1.run.app)
+- **Repository:** [CIT-Coderzz on GitHub](https://github.com/Ragaven-V/CIT-Coderzz)
 
-- **Fleet Manager** — Oversees fleet assets, maintenance, vehicle lifecycle, and operational efficiency
-- **Driver** — Creates trips, assigns vehicles and drivers, monitors active deliveries
-- **Safety Officer** — Ensures driver compliance, tracks license validity, monitors safety scores
-- **Financial Analyst** — Reviews operational expenses, fuel consumption, maintenance costs, and profitability
+---
 
-## Core Features
+## 📋 The Problem
 
-- **Authentication** — Secure login with Role-Based Access Control (RBAC)
-- **Dashboard** — Real-time KPIs (Active Vehicles, Available Vehicles, Vehicles in Maintenance, Active Trips, Pending Trips, Drivers On Duty, Fleet Utilization %)
-- **Vehicle Registry** — Master list of vehicles with status tracking (Available, On Trip, In Shop, Retired)
-- **Driver Management** — Driver profiles with license tracking and safety scores
-- **Trip Management** — Trip lifecycle: Draft → Dispatched → Completed → Cancelled
-- **Maintenance** — Maintenance logs that auto-update vehicle status
-- **Fuel & Expense Tracking** — Fuel logs, expenses, and automatic operational cost calculation
-- **Reports & Analytics** — Fuel Efficiency, Fleet Utilization, Operational Cost, Vehicle ROI (CSV export)
+Logistics operations frequently suffer from inefficiencies caused by manual logbooks, scattered spreadsheets, and siloed tools. This results in:
+* **Scheduling Overlaps:** Drivers or vehicles accidentally double-booked.
+* **Safety & Compliance Gaps:** Dispatching vehicles to drivers with expired licenses.
+* **Overlooked Maintenance:** Unplanned vehicle breakdowns and costly repairs.
+* **Inaccurate Expense Tracking:** Scattered fuel receipts and unaccounted-for driver costs.
+* **Lack of Visibility:** Difficulty calculating key performance indicators (KPIs) like Fleet Utilization % or Vehicle ROI in real time.
 
-## Business Rules
+---
 
-- Vehicle registration numbers must be unique
-- Retired or In Shop vehicles never appear in the dispatch selection
-- Drivers with expired licenses or Suspended status cannot be assigned to trips
-- A driver or vehicle already On Trip cannot be assigned to another trip
-- Cargo weight must not exceed the vehicle's maximum load capacity
-- Dispatching a trip automatically sets vehicle and driver status to On Trip
-- Completing/cancelling a trip automatically restores vehicle and driver to Available
-- Creating an active maintenance record automatically sets vehicle status to In Shop
-- Closing maintenance restores vehicle status to Available (unless retired)
+## 🎯 Target Users (Role-Based Access Control)
 
-## Tech Stack
+TransitOps is fully optimized with robust **Role-Based Access Control (RBAC)** to ensure every team member has a tailored, secure workspace:
 
-- **Backend:** Node.js / Express (`backend/src`)
-- **Frontend:** _(add framework here, e.g. React)_
-- **Database:** _(add DB here, e.g. MongoDB / PostgreSQL)_
+1. **Fleet Manager 🛠️**
+   * Oversees all fleet assets, registers new vehicles, schedules vehicle maintenance, manages system settings, and defines global parameters.
+   * **Protected Registration:** Signup requires the Fleet Manager Security Passcode (default is `TRANSIT_ADMIN_2026`, configurable in Settings).
+2. **Driver 🚛**
+   * Signs in to view assigned trips, dispatches scheduled deliveries, submits fuel receipts, and completes/cancels trips.
+3. **Safety Officer 🛡️**
+   * Onboards and updates drivers, monitors safety scores, tracks license expiration status, and suspends profiles when necessary.
+4. **Financial Analyst 📊**
+   * Accesses detailed operating reports, manages fuel and maintenance logs, reviews expense reports, and analyzes overall fleet profitability.
 
-## Project Structure
+---
 
-```
+## ✨ Core Features
+
+* **Real-Time KPI Dashboard:** High-level metrics showing active/available vehicles, vehicles in shop, pending trips, drivers on duty, and real-time **Fleet Utilization %**.
+* **Vehicle Registry & Status Engine:** Active tracking of all assets through four lifecycle states: *Available*, *On Trip*, *In Shop*, and *Retired*.
+* **Driver Profiles & Compliance Tracker:** Keep records of licensing details with visual indicators for expired licenses and real-time security restrictions.
+* **Dynamic Trip Lifecycle Scheduler:** Transitions trips securely through the entire cycle: `Draft` ➔ `Dispatched` ➔ `Completed` or `Cancelled`.
+* **Automated Asset Locking:** Ensures a driver or vehicle already on an active trip cannot be assigned to any other parallel delivery.
+* **Maintenance & Auto-Status Updates:** Creating a maintenance record automatically switches a vehicle's status to *In Shop*. Resolving the record dynamically restores it to *Available*.
+* **Integrated Fuel & Expense Logging:** Track operating expenses by cost category, linking fuel logs to specific vehicles to automate fuel efficiency calculations.
+* **Rich Operational Reports & CSV Export:** Clean tables with active filtering and instant spreadsheet-ready CSV downloads.
+
+---
+
+## 🛡️ Business Rules & System Guardrails
+
+To prevent human error, TransitOps enforces strict transactional rules at the database and server levels:
+1. **Uniqueness Constraints:** Vehicle registration numbers and driver license numbers must be completely unique.
+2. **Dispatch Validation:** Vehicles marked as *Retired* or *In Shop (Under Maintenance)* are filtered out from the dispatch queue.
+3. **Compliance Blocking:** Drivers with *Expired* licenses or *Suspended* status are blocked from being assigned to any trip.
+4. **Double-Booking Prevention:** A driver or vehicle already marked as *On Trip* cannot be assigned to another trip until the current one is completed or cancelled.
+5. **Capacity Guardrails:** Trips enforce load limits; cargo weight must not exceed the vehicle's maximum load capacity.
+6. **Automatic State Synchronization:**
+   * **Dispatching a trip** automatically updates the assigned vehicle and driver status to `On Trip`.
+   * **Completing or cancelling a trip** automatically restores the assigned vehicle and driver status to `Available`.
+   * **Filing a new maintenance log** automatically marks the vehicle status as `In Shop`.
+   * **Closing a maintenance record** automatically restores the vehicle status to `Available` (unless manually retired).
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+Unlike complex, hard-to-maintain multi-folder projects, TransitOps is structured as an elegant, high-performance **Single-Folder Full-Stack Application** designed for rapid local execution and painless deployment:
+
+* **Frontend:** React 19, TypeScript, Vite, Tailwind CSS 4.0, and Motion for elegant, hardware-accelerated animations.
+* **Backend:** Node.js, Express (compiled via esbuild to optimized CommonJS).
+* **Database:** SQLite via `better-sqlite3` (ultra-fast, self-contained local SQL database requiring zero configuration or database servers).
+* **AI Core:** Integrated Google Gemini API for smart insights and automated analysis.
+
+---
+
+## 📂 Project Structure
+
+```text
 transitops/
-├── backend/
-│   └── src/
-│       ├── routes/
-│       └── server.js
-├── frontend/
-└── db/
-```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v18+ recommended)
-- npm
-
-### Installation
-
-```bash
-git clone https://github.com/Ragaven-V/CIT-Coderzz.git
-cd CIT-Coderzz/transitops/backend
-npm install
-```
-
-### Environment Variables
-
-Create a `.env` file in `backend/` with:
-
-```
-PORT=5000
-DATABASE_URL=your_database_connection_string
-JWT_SECRET=your_jwt_secret
-```
-
-### Running the App
-
-```bash
-npm run dev
-```
-
-## Contributors
-
-- Ragaven-V
-- priyanprabaraba2007-create
-
-## License
-
-_(add license here)_
+├── src/                    # Frontend React Application
+│   ├── components/         # Modular React Components (Login, Settings, Dashboard, etc.)
+│   ├── App.tsx             # Primary Application UI Layout & Router
+│   ├── api.ts              # Unified API Client for Express Interaction
+│   ├── types.ts            # Shared TypeScript Interfaces, Enums & Types
+│   ├── index.css           # Global Tailwind CSS Imports and Theme Definitions
+│   └── main.tsx            # React App Mount Point
+├── server.ts               # Full-Stack Node.js Express Server & API Routes
+├── transitops.db           # SQLite Local Database (Auto-created on start)
+├── package.json            # Unified Dependencies & Build/Dev Scripts
+├── tsconfig.json           # TypeScript Compiler Configuration
+├── vite.config.ts          # Vite Configuration with Tailwind Integration
+├── .env.example            # Environment variables placeholder
+└── README.md               # Documentation
