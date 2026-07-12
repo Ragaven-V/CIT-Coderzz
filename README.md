@@ -5,11 +5,25 @@ TransitOps is an end-to-end transport operations platform designed for logistics
 
 ---
 
-## 🚀 Presentation & Quick Links
+## 🚀 Presentation 
 
-- **Live Sandbox App:** [TransitOps Shared Sandbox](https://ais-pre-obqlfjidprfcqt4cijtdpb-555222198996.asia-east1.run.app)
-- **Live Development Preview:** [TransitOps Dev Preview](https://ais-dev-obqlfjidprfcqt4cijtdpb-555222198996.asia-east1.run.app)
-- **Repository:** [CIT-Coderzz on GitHub](https://github.com/Ragaven-V/CIT-Coderzz)
+Clone the Repository:
+code
+Bash
+git clone https://github.com/Ragaven-V/CIT-Coderzz.git
+cd CIT-Coderzz
+Install Dependencies:
+code
+Bash
+npm install
+Run in Development Mode:
+code
+Bash
+npm run dev
+Open the Application:
+Once started, the full-stack server runs seamlessly on their machine.
+The app will be fully interactive and accessible at: http://localhost:3000
+
 
 ---
 
